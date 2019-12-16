@@ -1,0 +1,63 @@
+>>需要将PDF中的关键字提取出来。
+目前初步想法:
+用一个pythonk库将pdf转换成一种格式化的文件，然后匹配其中的关键字信息，输出，。
+
+具体实现:
+首先，我需要一个nb的python库。熟悉
+
+sudo apt-get install cmake build-essential libgtk2.0-dev libjpeg8-dev libjpeg-dev libavcodec-dev libavformat-dev libtiff5-dev cmake libswscale-dev
+wget https://codeload.github.com/opencv/opencv/tar.gz/2.4.13
+
+tfidf
+tf-idf（英语：term frequency–inverse document frequency）是一种用于信息检索与文本挖掘的常用加权技术。
+tf-idf是一种统计方法，用以评估一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。字词的重要性随着它在文件中出现的次数成正比增加，
+但同时会随着它在语料库中出现的频率成反比下降。
+tf-idf加权的各种形式常被搜索引擎应用，作为文件与用户查询之间相关程度的度量或评级。除了tf-idf以外，互联网上的搜索引擎还会使用基于链接分析的评级方法，
+以确定文件在搜索结果中出现的顺序
+
+NLTK 自然语言工具箱
+NLTK和Scikit-Learn
+jieba
+词袋模型
+词频TF(Term Frequency):
+逆向文档频率IDF(Inverse Document Frequency)
+
+TextRank4ZH
+TextRank算法可以用来从文本提取关键词和摘要，TextRank4ZH是针对中文文本的TextRank算法的python算法实现
+
+
+import ntlk
+import jieba
+
+raw=open('forgotten_times.txt').read()
+text=nltk.text.Text(jieba.lcut(raw))
+print text.concordance(u'风花雪月')
+text.dispersion_plot([u'校园',u'大学'])
+
+ 研究方向,
+ 中文关键词
+ 英文关键词
+source venv/bin/activate
+deactivate
+
+python 中文 文本分析、
+
+
+研究方向
+中文关键词
+英文关键词
+
+
+自动关键词抽取系统的实现主要包括3个步骤:
+首先是文本预处理, 涉及文本(集合)的组织、格式处理、分词、去停用词等; 
+其次是候选词选择, 统计发现, 大多数的关键词往往是名词、动词、形容词等实词(短语), 
+而连词、助词、叹词等虚词(短语)几乎不作为关键词, 所以可以按照语言规则筛选文本中的词(短语), 形成候选关键词集合; 
+最后是评价和确定关键词, 对每个候选词, 利用特定方法或方法组合计算它是否为关键词的特性, 可以进行判断、分级或打分, 将大于概率阈值、
+评定级别或得分高的候选词按数量要求确定为关键词.
+
+
+(1) 基于词权重(term weight), 包括词性、词计数、词频、文档频率、逆文档频率、x1测度、平均词频、相对词频、词长等;
+
+(2) 基于词的文档位置(term location), 包括文档前N个词、文档后N个词、段首N个词、段尾N个词、标题词、文档特殊位置词(摘要、引言、结论)等;
+
+(3) 基于词的关联信息(term collocation), 包括互信息、均值、方差、共现度、依存度、中心性测度、聚类系数、TFIDF值、PageRank值、Hits值、短概念缩减、长概念提升、词跨度等.

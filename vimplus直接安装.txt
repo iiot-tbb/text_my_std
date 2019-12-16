@@ -1,0 +1,6 @@
+sudo apt install git 
+git clone https://github.com/chxuan/vimplus.git ~/.vimplus
+cd ~/.vimplus
+./install.sh
+°ïÖúÎÄµµ
+https://www.jianshu.com/p/75cde8a80fd7

@@ -1,0 +1,137 @@
+
+
+git：
+    >>git 安装 sudo apt-get install git
+    >>git 设置:$ git config --global user.name "Your Name"
+            $ git config --global user.email "email@example.com"
+    >> git init 在当前文件夹下将这个目录变成git可以管理的仓库：
+    两步把一个文件放到git仓库中
+    >> git add readme.txt 将readme文件放在git仓库
+    >>git commit -m "wrote a readme file"    用命令 git commit告诉git，把文件添加到了仓库
+    -m后面输入的是本次提交的说明，可以输入任何内容。
+    >>当修改完文件后，用 git status 命令让我们时刻掌握仓库的当前状态。
+    >>git diff 比如休假回来，记不清上次修改的内容，用这个命令可以查看：
+    >>知道了做了什么修改，就可以安心将其提交到仓库中，提交修改和提交新文件的操作是一样的两步
+    git add readme.txt
+    在git commit之前，我们再运行git status 看看当前仓库的状态：git status
+    git commit -m "add distributed"
+
+
+>>版本回退
+    >>git log 命令显示从最近到最远的提交日志
+    >>如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
+    >>git reset --hard HEAD^         git 回退到上一个版本,上上一个版本就是HEAD^^
+        要往上100个版本写一百个^，或者HEAD~100
+    >>git reflog 查看历史命令，以便确定要回到未来哪个版本。git reset --hard 1094a（tip：版本号）
+
+
+>>工作区:
+    >>就是你在电脑上能看到的目录，比如我们的××××文件夹就是一个工作区
+    >>版本库：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+        >>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，
+        以及指向master的一个指针叫HEAD
+        >>git add 把文件添加到暂存区，
+        >>第二步用git commit 提交更改。即把暂存区的所有修改一次性提交给当前分支，即一开始创建的master
+>>管理修改：
+    >>为何git比其他的版本控制系统设计的更为优秀因为git跟踪并管理的是修改，而非文件。
+    >>用git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+>>撤销修改：
+    命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+    >>一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+    >>一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+    >>Git同样告诉我们，用命令git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+    >>summary:
+
+        >>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+        >>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+       >> 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+>>删除文件：
+    >>先添加一个新文件test到Git并且提交
+        >> git add test 
+        >> git commit --m "add test"
+        >>rm test (此时，工作区和版本库就不一致了，git status命令会立刻告诉你哪些文件被删除了)
+    >>之后，有两个选择:
+        >>第一个,从版本库删除该文件，那就用命令git rm删掉，并且git commit:
+            >>git rm test
+            >>git commit -m "remove test"
+            此时，文件就从版本库中被删除了
+            >>tip：先手动删除文件，然后使用git rm <file> 和 git add <file>效果是一样的
+        >>另一种情况是删错了，因为版本库里还有呢，所以可以轻松地把误删的文件恢复到最新版本：
+            >>git checkout -- test
+            >>git checkout 其实就是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以"一键还原"
+            >>从来没有被添加到版本库里就被删除的文件，是无法恢复的。
+>>远程仓库：
+    >>第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key
+        >>ssh-keygen -t rsa -C "youremail@example.com"
+        >>一路回车
+        >>在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人
+        >>第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
+    >>在 github上创建一个新的仓库，create a new repo
+    >>git remote add origin git@github.com:iiot-tbb/learngit.git
+    >>从现在起，只要本地作业提交，就可以通过命令：git push origin master
+    >>$ git push origin master
+>>分支管理:
+    >>创建与合并分支:
+        >>创建dev分支,并且切换到dev分支：
+            git checkout -b dev
+        >>git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+            $ git branch dev
+            $ git checkout dev
+        >>用git branch命令查看当前分支:
+            $ git branch
+            * dev
+            master
+        >>切换回分支:
+            $ git checkout master
+            Switched to branch 'master'
+        >>合并分支:
+            $ git merge dev
+            Updating d46f35e..b17d20e
+            Fast-forward
+            readme.txt | 1 +
+            1 file changed, 1 insertion(+)
+        >>合并后可安全的删除分支:
+            >>$ git branch -d dev
+                Deleted branch dev (was b17d20e)
+            因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。
+        >>我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout -- <file>，同一个命令，有两种作用，确实有点令人迷惑。
+        实际上，切换分支这个动作，用switch更科学。因此，最新版本的Git提供了新的git switch命令来切换分支：
+        创建并切换到新的dev分支，可以使用：
+            $ git switch -c dev
+        >>直接切换到已有的master分支，可以使用：
+            git switch master
+        Git鼓励大量使用分支：
+
+        查看分支：git branch
+
+        创建分支：git branch <name>
+
+        切换分支：git checkout <name>或者git switch <name>
+
+        创建+切换分支：git checkout -b <name>或者git switch -c <name>
+
+        合并某分支到当前分支：git merge <name>
+
+        删除分支：git branch -d <name>
+
+    >>解决冲突
+        >>当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+
+        解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+
+        用git log --graph命令可以看到分支合并图。
+
+        
+
+{%- if theme.footer.theme.enable %}
+  <div class="theme-info">
+    {%- set next_site = 'https://theme-next.org' %}
+    {%- if theme.scheme !== 'Gemini' %}
+      {%- set next_site = 'https://' + theme.scheme.toLowerCase() + '.theme-next.org' %}
+    {%- endif %}
+    {{- __('footer.theme') }} – {{ next_url(next_site, 'NexT.' + theme.scheme, {class: 'theme-link'}) }}
+    {%- if theme.footer.theme.version %} v{{ next_version }}{%- endif %}
+ </div>
+{%- endif %}
