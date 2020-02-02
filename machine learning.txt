@@ -1,0 +1,28 @@
+>>> 机器学习
+    >>>f(state) -> output
+    >>垃圾邮件分类，传统方法，自己写规则，对应规则需不断修改
+    >>贝叶斯解决垃圾邮件分类问题，
+    >>通过历史数据，观察新的数据，不断优化，叫机器学习
+
+
+    朴素贝叶斯
+    All models are wrong,but some are useful,---George E.P.Box
+
+
+    机器学习的种类，Based on probability,Based on Linear Alebgea.
+
+    K--nearest neighbors
+
+    advantages:simple
+    disadvantgaes: much storage,Inference time is long,judgment easily failed,outliner sensitive
+
+    KNN 理论上可以拟合任意复杂的函数。
+    欧式距离？
+
+    决策树：salient feature 显著特点
+        >>基于信息熵
+        >>jiyu Gini纯度 二者反映同一件事情，
+        >>难点：决策路径尽可能短。
+
+    贝叶斯分类器
+    基于神经网络---> 拟合非常复杂的函数，
