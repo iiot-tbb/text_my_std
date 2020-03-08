@@ -1,0 +1,26 @@
+C- + b 在tmux里，每使用一个快捷键需要按一下
+C- + % 把当前窗口分成上下
+C- + “ 把当前窗口分成左右
+C- + d 退出 tmux
+C- + c 创建一个新的窗口
+      + p 之前的窗口
+C-   + n 下一个窗口
+C- + <number> 选择去哪个窗口
+
+
+tmux中出现sessions should be nested with care, unset $TMUX to force
+解决方法：
+
+执行unset TMUX 即可解决。
+
+tmux new -s database 建立一个 名字为database的session
+
+You could also rename your existing session
+tmux rename-session -t 0 database
+
+tmux new -s foo # 新建名称为 foo 的会话
+tmux ls # 列出所有 tmux 会话
+tmux a # 恢复至上一次的会话
+tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字
+tmux kill-session -t foo # 删除名称为 foo 的会话
+tmux kill-server # 删除所有的会话

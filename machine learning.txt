@@ -26,3 +26,87 @@
 
     贝叶斯分类器
     基于神经网络---> 拟合非常复杂的函数，
+
+
+    lazy learning and eager learning
+
+    lazy learning:数据 -> 映射
+    eager learning:数据 -> f -> 结果
+    lazy learning: ->不学习任何函数，新数据进行比较推理慢。
+        >>典型：KNN(k-临近算法)
+    Eager learning: 学习到了新函数，推理比较快。
+    outliner（异常值）
+    numpy->perenctle
+
+    Bias and variance(误差与方差)
+    
+    误差 体现学习的函数拟合程度（可以反映准确性）
+    方差反映是否稳定。
+
+    训练集(train) 验证集(validation) 测试集(test)
+    (x,y) <=>f
+    房价 y =kx+b //// y =kx^2 +bx +c
+    训练集 -> k,b     训练 -> k,b,c 制定函数
+
+    验证集 选取函数
+
+    测试集 测试模型效果
+
+    supervised learning -> x->y 有标记
+    unsupervised learning -> 没有标签，聚类
+    
+    >>> 深度学习(Deep-learning)
+
+    神经网络
+    -> 网络能够学习哪个变量是比较重要的。
+    感知机 神经网络 -> 多个感知机的相加
+    神经网络的流行:数据量，计算力
+
+    FCN 全连接网络
+
+    CNN 卷积神经网络(广泛用于图像，NLP有一定应用)
+
+    RNN 循环神经网络(广泛用于NLP)(时序)
+
+    gan主要图像
+
+    FCN: Computation within a neuron
+     
+    Logistic regression (An example of binary classification)
+
+    图片 三维矩阵(64*64*3)
+
+    y ∈ (0,1) ,y=1 有猫 ，y=0 无猫
+
+    y_hat =p(y=1|x)
+    统一: p(y|x) =y_hat^y(1-y_hat)^(1-y) => -log p(y|x) = y log(y_hat) + (1-y)log(1-y_hat)
+
+    (x,y=1) loss = -log y_hat min_loss -> max y_hat ∈(0,1)
+    (x,y=0) loss = -log(1-y_hat)  min_loss -> min y_hat∈(0,1) ->趋近0
+
+    输入层 (隐藏层，输出层) 2层。
+
+    向量化
+
+    activation function(激活函数)
+
+    非线性 -> 多层次神经网络才有用。
+    cost functions:(loss) Regression: loss =MSE =均方差
+
+    二分类 L = -1/m[ylog(y_hat) +(1-y)log(1-y_hat)]
+
+    crossEntropy:交叉熵
+    softmax: 二分类 -> 1个数代表 ∈ 某一个类的概率P
+            多分类：-> eg:5分类 ->5个数值，每个数值代表属于那个类的概率。
+
+    输入样本为第二类 -> x,y=[0,1,0,0], one-hot
+
+    L = -sum(ylogs)
+
+    希望输入一个(x,y) y是第二类，那么通过最小化L，输出x是第二类的概率越大越好。
+
+    logit regression 是 crossEntropy在二分类下的特殊化。
+    BP->梯度下降
+    computation graph(Forward) J = 5(a+b*c)=5*(a+b*c).
+    computation graph(Backward)减少梯度的重复计算。
+    
